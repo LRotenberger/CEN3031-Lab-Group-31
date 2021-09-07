@@ -1,10 +1,8 @@
-# merge conflict
+# CEN3031-Lab-Group-31 Assignment 1
 
+Member1: Logan Rotenberger
 
-
-Member1: 
-
-Member2: 
+Member2: Jason Zhang
 
 Member3: Kevin Zak
 
