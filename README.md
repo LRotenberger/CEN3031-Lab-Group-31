@@ -2,7 +2,7 @@
 
 
 
-Member1: 
+Member1: Logan Rotenberger
 
 Member2: 
 
