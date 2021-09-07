@@ -6,6 +6,6 @@ Member1: Logan Rotenberger
 
 Member2: Jason Zhang
 
-Member3: 
+Member3: Kevin Zak
 
 Member4: 
