@@ -2,10 +2,10 @@
 
 
 
-Member1: Logan Rotenberger
+Member1: 
 
-Member2: Jason Zhang
+Member2: 
 
-Member3: Kevin Zak
+Member3: 
 
-Member4: Dante Setticasi
+Member4: 
