@@ -6,4 +6,4 @@ Member2: Jason Zhang
 
 Member3: Kevin Zak
 
-Member4: 
+Member4: Dante Setticasi
