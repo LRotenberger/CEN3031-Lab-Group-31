@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     height:
-      Platform.OS !== "ios" &&
+      //Platform.OS !== "ios" &&
       Dimensions.get("screen").height !== Dimensions.get("window").height &&
       StatusBar.currentHeight > 24
         ? Dimensions.get("window").height + StatusBar.currentHeight

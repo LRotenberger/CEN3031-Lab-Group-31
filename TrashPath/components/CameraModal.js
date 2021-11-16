@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   show: {
     position: "absolute",
     height:
-      Platform.OS !== "ios" &&
+      //Platform.OS !== "ios" &&
       Dimensions.get("screen").height !== Dimensions.get("window").height &&
       StatusBar.currentHeight > 24
         ? Dimensions.get("window").height + StatusBar.currentHeight
