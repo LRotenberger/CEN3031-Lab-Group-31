@@ -20,6 +20,10 @@ export default function CameraModal({ open, onPictureTaken }) {
     }
   };
 
+  if (!open) {
+    return null;
+  }
+
   return (
     <View style={open ? styles.show : styles.hide}>
       <Camera style={styles.show} autoFocus="on" ref={cameraRef} />

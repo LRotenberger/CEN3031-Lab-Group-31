@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+﻿import React, { useMemo } from "react";
 import MapView, { Marker } from "react-native-maps";
 import {
   StyleSheet,
@@ -88,6 +88,13 @@ export default function App() {
     };
   });
 
+  const hasLocationData = useMemo(() => {
+    if (location?.coords?.latitude && location?.coords?.longitude) {
+      return true;
+    }
+    return false;
+  }, [location]);
+
   const openCameraModal = () => {
     setOpen(true);
   };
@@ -103,7 +110,11 @@ export default function App() {
   const handleSubmitGeotag = async (data) => {
     console.log(data);
 
-    // TODO: send to database
+    // data is geotag object
+    // TODO: send data and picture data to database
+
+    // reset picture data to close GeotagSubmit view
+    setPictureData(null);
   };
 
   return (
@@ -124,7 +135,14 @@ export default function App() {
         </MapView>
       )}
 
-      <GeotagSubmit pictureData={pictureData} onSubmit={handleSubmitGeotag} />
+      {hasLocationData && (
+        <GeotagSubmit
+          pictureData={pictureData}
+          onSubmit={handleSubmitGeotag}
+          lat={location.coords.latitude}
+          long={location.coords.longitude}
+        />
+      )}
 
       <CameraModal open={open} onPictureTaken={handlePictureTaken} />
 
