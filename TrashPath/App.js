@@ -1,5 +1,5 @@
 ﻿import React, { useMemo } from "react";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import {
   StyleSheet,
   Text,
@@ -17,6 +17,7 @@ import * as Font from "expo-font";
 import { Camera } from "expo-camera";
 import CameraModal from "./components/CameraModal";
 import GeotagSubmit from "./components/GeotagSubmit";
+import WebView from "react-native-webview";
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -26,9 +27,10 @@ export default function App() {
   const [search, setSearch] = useState();
 
   const [open, setOpen] = useState(false);
-  const [pictureData, setPictureData] = useState(false);
+  const [pictureData, setPictureData] = useState(null);
 
-  const cameraRef = useRef(null);
+  const [markerArray, setMarkerArray] = useState([]);
+  const [markerCurr, setMarkerCurr] = useState([]);
 
   const onLocationChange = (newLocation) => {
     if (newLocation?.coords) {
@@ -48,10 +50,6 @@ export default function App() {
 
   const updateSearch = (newSearch) => {
     setSearch(newSearch);
-  };
-
-  const searchforMaterial = (e) => {
-    console.log(search);
   };
 
   useEffect(() => {
@@ -109,12 +107,24 @@ export default function App() {
 
   const handleSubmitGeotag = async (data) => {
     console.log(data);
-
+    data = {
+      ...data,
+      ["pictureData"]: `data:image/jpg;base64,${pictureData.base64}`,
+    };
+    setMarkerArray((markerArray) => [...markerArray, data]);
     // data is geotag object
     // TODO: send data and picture data to database
 
     // reset picture data to close GeotagSubmit view
     setPictureData(null);
+  };
+
+  const handleSearch = (e) => {
+    setMarkerCurr(
+      markerArray.filter((marker) =>
+        marker.materials.includes(search.toLowerCase())
+      )
+    );
   };
 
   return (
@@ -125,11 +135,33 @@ export default function App() {
           //onRegionChange={onRegionChange}
           style={styles.map}
         >
+          {markerCurr.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={{ latitude: marker.lat, longitude: marker.long }}
+              description={marker.materials.toString()}
+              style={{ zIndex: 1 }}
+            >
+              <Callout>
+                <View>
+                  <WebView
+                    style={{ height: 120, width: 160 }}
+                    source={{
+                      uri: "https://acropolis-wp-content-uploads.s3.us-west-1.amazonaws.com/outside-dumpster-trash-garbage1.jpg",
+                    }}
+                    resizeMode="cover"
+                  />
+                  <Text>{marker.materials.toString()}</Text>
+                </View>
+              </Callout>
+            </Marker>
+          ))}
           <Marker
             coordinate={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
             }}
+            style={{ zIndex: 0 }}
             image={require("./assets/currentlocation.png")}
           />
         </MapView>
@@ -158,35 +190,13 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
-      {/* <Camera
-        style={pictureData ? styles.cameraShown : styles.cameraHidden}
-        autoFocus="off"
-        ref={cameraRef}
-      />
-      <TouchableOpacity
-        onPress={() =>
-          console.log(
-            "New GeoTag Created",
-            "\n------------------",
-            "\nLatitude:",
-            region?.latitude,
-            "\nLongitude:",
-            region?.longitude
-          )
-           }
-        style={styles.locationButton}
-      >
-        <Image
-          style={styles.imagestyle}
-          source={require("./assets/addtag.png")}
-        />
-      </TouchableOpacity> */}
       <View style={styles.searchbar}>
         <SearchBar
           placeholder="Type here..."
           onChangeText={updateSearch}
           value={search}
-          onSubmitEditing={searchforMaterial}
+          onSubmitEditing={handleSearch}
+          onClear={() => setMarkerCurr([])}
         />
       </View>
     </View>
@@ -242,5 +252,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 20,
     bottom: 30,
+  },
+  markerImage: {
+    resizeMode: "cover",
+    height: 100,
+    width: 100,
   },
 });

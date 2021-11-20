@@ -13,7 +13,9 @@ export default function CameraModal({ open, onPictureTaken }) {
   const cameraRef = useRef(null);
 
   const takePicture = async () => {
-    const data = await cameraRef.current?.takePictureAsync();
+    const data = await cameraRef.current?.takePictureAsync({
+      base64: true,
+    });
 
     if (data) {
       onPictureTaken(data);

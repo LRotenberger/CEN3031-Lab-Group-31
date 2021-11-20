@@ -54,14 +54,10 @@ export default function GeotagSubmit({ pictureData, onSubmit, lat, long }) {
 
   useEffect(() => {
     return () => {
-      if (!pictureData) {
-        setChecked({ ...checkedItems });
-        editGeotag({ ...initialState, lat, long });
-      }
+      setChecked({ ...checkedItems });
+      editGeotag({ materials: [], lat, long });
     };
   }, [pictureData]);
-
-  console.log(geotag);
 
   return (
     <View style={pictureData ? styles.show : styles.hide}>

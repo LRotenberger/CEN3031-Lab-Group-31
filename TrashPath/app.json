@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testproj",
-    "slug": "testproj",
+    "name": "TrashPath",
+    "slug": "trashpath",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/iconprototype.png",
@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/LRotenberger/CEN3031-Lab-Group-31"
   }
 }
