@@ -8,4 +8,8 @@
 
 
 
-    Contributors: Logan Rotenberger, Jason Zhang, Kevin Zak, Dante Setticasi
+Contributors: 
+Logan Rotenberger - Product Manager
+Jason Zhang - Scrum Master
+Kevin Zak - Developer
+Dante Setticasi - Developer
