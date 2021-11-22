@@ -76,14 +76,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    async () => {
+    async function cameraPerms() {
       let { status } = await Camera.requestPermissionsAsync();
-
+      console.log(status);
       if (status !== "granted") {
+        console.log("no perms");
         setErrorMsg("Permission to access camera was denied");
         return;
       }
-    };
+    }
+    cameraPerms();
   });
 
   const hasLocationData = useMemo(() => {
